@@ -12,12 +12,7 @@ services:
       - key: FLASK_ENV
         value: development
       - key: DATABASE_URL
-        fromService:
-          type: pserv
-          name: db
-          property: postgresql://user:1234@db:5432/notes_db
-      - key: PG_PORT
-        value: 5432  # Puerto interno del contenedor de PostgreSQL
+        value: postgresql://user:1234@db:5432/notes_db
 
   - type: pserv
     name: db
@@ -33,3 +28,4 @@ services:
         value: 1234
       - key: POSTGRES_DB
         value: notes_db
+
