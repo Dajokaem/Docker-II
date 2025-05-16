@@ -28,8 +28,8 @@ services:
     autoDeploy: true
     envVars:
       - key: POSTGRES_USER
-        value: ${PG_USER}
+        value: user
       - key: POSTGRES_PASSWORD
-        value: ${PG_PASSWORD}
+        value: 1234
       - key: POSTGRES_DB
-        value: ${PG_DB}
+        value: notes_db
