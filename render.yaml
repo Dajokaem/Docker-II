@@ -1,0 +1,35 @@
+services:
+  - type: web
+    name: web
+    env: docker
+    dockerContext: ./client
+    dockerfilePath: Dockerfile
+    plan: free
+    autoDeploy: true
+    envVars:
+      - key: FLASK_APP
+        value: app.py
+      - key: FLASK_ENV
+        value: development
+      - key: DATABASE_URL
+        fromService:
+          type: pserv
+          name: db
+          property: connectionString
+      - key: PG_PORT
+        value: 5432  # Puerto interno del contenedor de PostgreSQL
+
+  - type: pserv
+    name: db
+    env: docker
+    dockerContext: ./database
+    dockerfilePath: Dockerfile
+    plan: free
+    autoDeploy: true
+    envVars:
+      - key: POSTGRES_USER
+        value: ${PG_USER}
+      - key: POSTGRES_PASSWORD
+        value: ${PG_PASSWORD}
+      - key: POSTGRES_DB
+        value: ${PG_DB}
