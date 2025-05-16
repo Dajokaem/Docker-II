@@ -15,7 +15,7 @@ services:
         fromService:
           type: pserv
           name: db
-          property: connectionString
+          property: postgresql://user:1234@db:5432/notes_db
       - key: PG_PORT
         value: 5432  # Puerto interno del contenedor de PostgreSQL
 
