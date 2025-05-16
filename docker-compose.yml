@@ -1,0 +1,30 @@
+version: '3.8'
+
+services:
+  db:
+    build: ./database
+    environment:
+      POSTGRES_USER: ${PG_USER}
+      POSTGRES_PASSWORD: ${PG_PASSWORD}
+      POSTGRES_DB: ${PG_DB}
+    ports:
+      - "${PG_PORT}:5432"
+    networks:
+      - umg
+
+  web:
+    build: ./client
+    environment:
+      FLASK_APP: app.py
+      FLASK_ENV: development
+      DATABASE_URL: postgresql://${PG_USER}:${PG_PASSWORD}@db:${PG_PORT}/${PG_DB}
+    ports:
+      - "${FS_PORT}:5000"
+    depends_on:
+      - db
+    networks:
+      - umg
+networks:
+  umg:
+    driver: bridge
+
